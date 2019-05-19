@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/menu_save"
+          android:icon="@drawable/ic_menu_save"
+          android:alphabeticShortcut='s'
+          android:title="@string/menu_save"
+          app:showAsAction="always|withText" />
+    <item android:id="@+id/menu_revert"
+          android:icon="@drawable/ic_menu_revert"
+          android:title="@string/menu_revert"
+        app:showAsAction="always|withText"
+        />
+    <item android:id="@+id/menu_delete"
+          android:icon="@drawable/ic_menu_delete"
+          android:title="@string/menu_delete"
+        app:showAsAction="always|withText" >
+    </item>
+    <item android:title="分类">
+        <menu>
+            <item android:title="运动"
+                android:id="@+id/sport"></item>
+            <item android:title="学习"
+                android:id="@+id/study"></item>
+            <item android:title="生活"
+                android:id="@+id/life"></item>
+        </menu>
+    </item>
+</menu>
