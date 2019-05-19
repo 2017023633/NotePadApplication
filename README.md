@@ -25,4 +25,4 @@ values.put(NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE, retStrFormatNowDate);
         />
 ```
 #### 每一条笔记本条目都会显示最近修改的时间，结果截图：  
-<img src="https://github.com/2017023633/image/blob/master/image/1.png width="300" />   
+<img src="https://github.com/2017023633/image/blob/master/image/1.png" width="300" />   
