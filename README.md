@@ -116,4 +116,79 @@ return true;
 #### ③选择主界面菜单中的更换背景颜色即可更换背景，结果截图：  
 <img src="https://github.com/2017023633/image/blob/master/image/3.png" width="300" />  
 <img src="https://github.com/2017023633/image/blob/master/image/4.png" width="300" />  
+  
+### (四) 笔记本分类  
+#### ①在NotePad.java中加入存储分类信息的变量  
+```
+public static final String COLUMN_NAME_LABEL="label";
+```
+#### ②在NotePadProvider.java文件中的创建表的函数中加入label字段  
+```
+public void onCreate(SQLiteDatabase db) {
+           db.execSQL("CREATE TABLE " + NotePad.Notes.TABLE_NAME + " ("
+                   + NotePad.Notes._ID + " INTEGER PRIMARY KEY,"
+                   + NotePad.Notes.COLUMN_NAME_TITLE + " TEXT,"
+                   + NotePad.Notes.COLUMN_NAME_NOTE + " TEXT,"
+                   + NotePad.Notes.COLUMN_NAME_CREATE_DATE + " INTEGER,"
+                   + NotePad.Notes.COLUMN_NAME_MODIFICATION_DATE + " Text,"
+                   + NotePad.Notes.COLUMN_NAME_LABEL+ " TEXT);");
+       }
+```
+#### ③在笔记本编辑界面中加入分类的菜单  
+```
+<item android:title="分类">
+        <menu>
+            <item android:title="运动"
+                android:id="@+id/sport"></item>
+            <item android:title="学习"
+                android:id="@+id/study"></item>
+            <item android:title="生活"
+                android:id="@+id/life"></item>
+        </menu>
+    </item>
+```
+#### ④在NoteEditor.java中加入label的私有变量，用来存储分类信息，然后将信息存入数据库中的label字段  
+```
+case R.id.sport:
+this.label="运动";
+break;
+case R.id.study:
+this.label="学习";
+break;
+case R.id.life:
+this.label="生活";
+break;
+```
+```
+values.put(NotePad.Notes.COLUMN_NAME_LABEL,label);
 
+getContentResolver().update(
+                mUri,    // The URI for the record to update.
+                values,  // The map of column names and new values to apply to them.
+                null,    // No selection criteria are used, so no where columns are necessary.
+                null     // No where columns are used, so no where arguments are necessary.
+        );
+```
+#### ⑤在笔记本主界面添加分类的菜单，代码同步骤③一样，然后在NoteList.java中加入分类的相关代码，sort函数实现分类显示功能  
+```
+private void sort(String label){
+        updatecursor=getContentResolver().query(getIntent().getData(),PROJECTION,
+                NotePad.Notes.COLUMN_NAME_LABEL+"=?",new String[]{label},NotePad.Notes.DEFAULT_SORT_ORDER);
+        adapter.swapCursor(updatecursor);
+    }
+```
+```
+case R.id.sport2:
+sort("运动");
+return true;
+case R.id.study2:
+sort("学习");
+return true;
+case R.id.life2:
+sort("生活");
+return true;
+```
+#### ⑥结果截图：  
+<img src="https://github.com/2017023633/image/blob/master/image/5.png" width="300" />  
+<img src="https://github.com/2017023633/image/blob/master/image/6.png" width="300" />
+<img src="https://github.com/2017023633/image/blob/master/image/7.png" width="300" />
